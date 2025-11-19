@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8" />
+  <title>Quiz – Χολινεργικός Νευρώνας & Αγωνιστές</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #0b1b3a;
+      color: #f7f7f7;
+      margin: 0;
+      padding: 20px;
+    }
+    h1, h2 {
+      text-align: center;
+      color: #ffe066;
+    }
+    .quiz-container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: #10224a;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.4);
+    }
+    .question {
+      margin-bottom: 18px;
+      padding: 12px 14px;
+      border-radius: 8px;
+      background: #172c5c;
+    }
+    .question h3 {
+      margin: 0 0 8px;
+      font-size: 16px;
+    }
+    .options {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .option {
+      margin: 4px 0;
+      padding: 6px 10px;
+      border-radius: 6px;
+      background: #1f366b;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: background 0.2s, transform 0.1s, border 0.2s;
+      font-size: 14px;
+    }
+    .option:hover {
+      background: #26427f;
+      transform: translateY(-1px);
+    }
+    .option.correct {
+      background: #1f7a3a;
+      border-color: #8fffae;
+      color: #f9fff9;
+    }
+    .option.incorrect {
+      background: #7a1f1f;
+      border-color: #ff8f8f;
+      color: #fff6f6;
+    }
+    .question.answered .option {
+      cursor: default;
+      pointer-events: none;
+    }
+    .feedback {
+      margin-top: 4px;
+      font-size: 13px;
+      font-style: italic;
+    }
+    .feedback.correct-text {
+      color: #8fffae;
+    }
+    .feedback.incorrect-text {
+      color: #ffb3b3;
+    }
+    .score-box {
+      text-align: center;
+      margin: 16px 0 8px;
+      font-size: 16px;
+    }
+    .btn {
+      display: inline-block;
+      margin: 4px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      background: #ff9f1c;
+      color: #202020;
+      font-weight: 600;
+      font-size: 14px;
+    }
+    .btn:hover {
+      background: #ffbf69;
+    }
+  </style>
+</head>
+<body>
+  <div class="quiz-container">
+    <h1>Quiz – Χολινεργικός Νευρώνας &amp; Αγωνιστές</h1>
+    <h2>50 ερωτήσεις πολλαπλής επιλογής</h2>
+
+    <div class="score-box">
+      Σωστές απαντήσεις: <span id="score">0</span> / <span id="totalQuestions">0</span>
+      <br />
+      <button class="btn" id="resetBtn">Επαναφορά Quiz</button>
+    </div>
+
+    <!-- Q1 -->
+    <div class="question" data-question-id="1">
+      <h3>1. Ποιο τμήμα του νευρικού συστήματος περιλαμβάνει το αυτόνομο και το σωματικό;</h3>
+      <ul class="options">
+        <li class="option" data-correct="false">Κεντρικό νευρικό σύστημα</li>
+        <li class="option" data-correct="true">Περιφερικό νευρικό σύστημα</li>
+        <li class="option" data-correct="false">Εγκεφαλικό στέλεχος</li>
+        <li class="option" data-correct="false">Νωτιαίος μυελός</li>
+      </ul>
+      <div class="feedback"></div>
+    </div>
+
+    <!-- Q2 -->
+    <div class="question" data-question-id="2">
+      <h3>2. Ποιο σύστημα αντιδρά κυρίως σε καταστάσεις stress (ψύχους, φόβου, άσκησης);</h3>
+      <ul class="options">
+        <li class="option" data-correct="true">Συμπαθητικό σύστημα</li>
+        <li class="option" data-correct="false">Παρασυμπαθητικό σύστημα</li>
+        <li class="option" data-correct="false">Σωματικό κινητικό σύστημα</li>
+        <li class="option" data-correct="false">Αισθητικό σύστημα</li>
+      </ul>
+      <div class="feedback"></div>
+    </div>
+
+    <!-- Q3 -->
+    <div class="question" data-question-id="3">
+      <h3>3. Από ποιες μοίρες του νωτιαίου μυελού εκπορεύονται οι προγαγγλιακοί νευρώνες του συμπαθητικού;</h3>
+      <ul class="options">
+        <li class="option" data-correct="false">Αυχενική και ιερή</li>
+        <li class="option" data-correct="true">Θωρακική και οσφυϊκή</li>
+        <li class="option" data-correct="false">Κρανιακή και ιερή</li>
+        <li class="option" data-correct="false">Μόνο θωρακική</li>
+      </ul>
+      <div class="feedback"></div>
+    </div>
+
+    <!-- Q4 -->
+    <div class="question" data-question-id="4">
+      <h3>4. Από πού προέρχονται οι προγαγγλιακοί νευρώνες του παρασυμπαθητικού;</h3>
+      <ul class="options">
+        <li class="option" data-correct="true">Κρανιακή και ιερή μοίρα του ΝΜ</li>
+        <li class="option" data-correct="false">Θωρακική και οσφυϊκή μοίρα</li>
+        <li class="option" data-correct="false">Μόνο από τον προμήκη μυελό</li>
+        <li class="option" data-correct="false">Μόνο από τον νωτιαίο μυελό</li>
+      </ul>
+      <div class="feedback"></div>
+    </div>
+
+    <!-- Q5 -->
+    <div class="question" data-question-id="5">
+      <h3>5. Κύρια λειτουργία του παρασυμπαθητικού είναι να:</h3>
+      <ul class="options">
+        <li class="option" data-correct="false">Ενεργοποιεί την αντίδραση «fight or flight»</li>
+        <li class="option" data-correct="true">Συντηρεί λειτουργίες πέψης και ανάπαυσης</li>
+        <li class="option" data-correct="false">Ρυθμίζει μόνο την αναπνοή</li>
+        <li class="option" data-correct="false">Ελέγχει τη θερμοκρασία σώματος</li>
+      </ul>
+      <div class="feedback"></div>
+    </div>
+
+    <!-- Q6 -->
+    <div class="question" data-question-id="6">
+      <h3>6. Ποια από τα παρακάτω όργανα έχουν αποκλειστικά συμπαθητική νεύρωση;</h3>
+      <ul class="options">
+        <li class="option" data-correct="false">Καρδιά και πνεύμονες</li>
+        <li class="option" data-correct="true">Μυελός επινεφριδίων, νεφρός, ανελκτήρες τριχών, ιδρωτοποιοί αδένες</li>
+        <li class="option" data-correct="false">Σιελογόνοι αδένες</li>
+        <li class="option" data-correct="false">Ήπαρ και πάγκρεας</li>
+      </ul>
+      <div class="feedback"></div>
+    </div>
+
+    <!-- Q7 -->
+    <div class="question" data-question-id="7">
+      <h3>7. Πώς χαρακτηρίζεται ένας νευρώνας του ΑΝΣ όταν ο νευροδιαβιβαστής του είναι ακετυλοχολίνη;</h3>
+      <ul class="options">
+        <li class="option" data-correct="true">Χολινεργικός</li>
+        <li class="option" data-correct="false">Αδρενεργικός</li>
+        <li class="option" data-correct="false">Ντοπαμινεργικός</li>
+        <li class="option" data-correct="false">Σεροτονινεργικός</li>
+      </ul>
+      <div class="feedback"></div>
+    </div>
+
+    <!-- Q8 -->
+    <div class="question" data-question-id="8">
+      <h3>8. Ποιοι νευρώνες (συμπαθητικοί/παρασυμπαθητικοί) απελευθερώνουν ακετυλοχολίνη στις προγαγγλιακές συνάψεις;</h3>
+      <ul class="options">
+        <li class="option" data-correct="true">Και οι δύο τύποι προγαγγλιακών νευρώνων</li>
+        <li class="option" data-correct="false">Μόνο οι συμπαθητικοί</li>
+        <li class="option" data-correct="false">Μόνο οι παρασυμπαθητικοί</li>
+        <li class="option" data-correct="false">Κανένας, μόνο νορεπινεφρίνη</li>
+      </ul>
+      <div class="feedback"></div>
+    </div>
+
+    <!-- Q9 -->
+    <div class="question" data-question-id="9">
+      <h3>9. Ποιον νευροδιαβιβαστή απελευθερώνουν συνήθως οι μεταγαγγλιακοί συμπαθητικοί νευρώνες στις τελικές απολήξεις;</h3>
+      <ul class="options">
+        <li class="option" data-correct="false">Ακετυλοχολίνη</li>
+        <li class="option" data-correct="true">Νορεπινεφρίνη</li>
+        <li class="option" data-correct="false">Σεροτονίνη</li>
+        <li class="option" data-correct="false">GABA</li>
+      </ul>
+      <div class="feedback"></div>
+    </div>
+
+    <!-- Q10 -->
+    <div class="question" data-question-id="10">
+      <h3>10. Ποιοι υποδοχείς δέχονται την ακετυλοχολίνη στα εκτελεστικά όργανα του παρασυμπαθητικού;</h3>
+      <ul class="options">
+        <li class="option" data-correct="true">Μουσκαρινικοί υποδοχείς</li>
+        <li class="option" data-correct="false">Νικοτινικοί υποδοχείς</li>
+        <li class="option" data-correct="false">Αδρενεργικοί α</li>
+        <li class="option" data-correct="false">Αδρενεργικοί β</li>
+      </ul>
+      <div class="feedback"></div>
+    </div>
+
+    <!-- Q11 -->
+    <div class="question" data-question-id="11">
+      <h3>11. Πού χρησιμοποιείται κύρια η ακετυλοχολίνη ως νευροδιαβιβαστής εκτός του ΑΝΣ;</h3>
+      <ul class="options">
+        <li class="option" data-correct="true">Στη νευρομυϊκή σύναψη των σκελετικών μυών</li>
+        <li class="option" data-correct="false">Στις συνάψεις του εγκεφαλικού φλοιού μόνο</li>
+        <li class="option" data-correct="false">Στις συνάψεις του νωτιαίου μυελού μόνο</li>
+        <li class="option" data-correct="false">Δεν λειτουργεί εκτός ΑΝΣ</li>
+      </ul>
+      <div class="feedback"></div>
+    </div>
+
+    <!-- Q12 -->
+    <div class="question" data-question-id="12">
+      <h3>12. Σε μικρές και μεσαίες δόσεις η ακετυλοχολίνη προκαλεί κυρίως:</h3>
+      <ul class="options">
+        <li class="option" data-correct="true">Πτώση αρτηριακής πίεσης και βραδυκαρδία</li>
+        <li class="option" data-correct="false">Αύξηση ΑΠ και ταχυκαρδία</li>
+        <li class="option" data-correct="false">Μυδρίαση και βρογχοδιαστολή</li>
+        <li class="option" data-correct="false">Καμία αιμοδυναμική μεταβολή</li>
+      </ul>
+      <div class="feedback"></div>
+    </div>
+
+    <!-- Q13 -->
+    <div class="question" data-question-id="13">
+      <h3>13. Σε μεγάλες δόσεις η ακετυλοχολίνη διεγείρει κυρίως:</h3>
+      <ul class="options">
+        <li class="option" data-correct="false">Μόνο μουσκαρινικούς υποδοχείς</li>
+        <li class="option" data-correct="true">Νικοτινικούς υποδοχείς και συμπαθητικά γάγγλια</li>
+        <li class="option" data-correct="false">Μόνο ΚΝΣ υποδοχείς</li>
+        <li class="option" data-correct="false">Μόνο υποδοχείς στον μυελό των οστών</li>
+      </ul>
+      <div class="feedback"></div>
+    </div>
+
+    <!-- Q14 -->
+    <div class="question" data-question-id="14">
+      <h3>14. Η γενικευμένη αγγειοχάλαση που προκαλεί η ακετυλοχολίνη οφείλεται κυρίως σε:</h3>
+      <ul class="options">
+        <li class="option" data-correct="true">Έμμεση δράση μέσω απελευθέρωσης ΝΟ από ενδοθήλιο</li>
+        <li class="option" data-correct="false">Άμεση δράση σε β-αδρενεργικούς υποδοχείς</li>
+        <li class="option" data-correct="false">Αναστολή της ρενίνης</li>
+        <li class="option" data-correct="false">Αναστολή της αγγειοτενσίνης ΙΙ</li>
+      </ul>
+      <div class="feedback"></div>
+    </div>
+
+    <!-- Q15 -->
+    <div class="question" data-question-id="15">
+      <h3>15. Ποιο από τα παρακάτω είναι παράδειγμα χολινεργικής ίνας του συμπαθητικού συστήματος;</h3>
+      <ul class="options">
+        <li class="option" data-correct="true">Ίνες προς τους ιδρωτοποιούς αδένες</li>
+        <li class="option" data-correct="false">Ίνες προς την καρδιά</li>
+        <li class="option" data-correct="false">Ίνες προς τα βρογχιόλια</li>
+        <li class="option" data-correct="false">Ίνες προς τα νεφρικά αγγεία</li>
+      </ul>
+      <div class="feedback"></div>
+    </div>
+
+    <!-- Q16 -->
+    <div class="question" data-question-id="16">
+      <h3>16. Ποιο φάρμακο αναστέλλει την πρόσληψη χολίνης και άρα τη σύνθεση ακετυλοχολίνης;</h3>
+      <ul class="options">
+        <li class="option" data-correct="true">Ημιχολίνιο</li>
+        <li class="option" data-correct="false">Πραλιδοξίμη</li>
+        <li class="option" data-correct="false">Ατροπίνη</li>
+        <li class="option" data-correct="false">Νεοστιγμίνη</li>
+      </ul>
+      <div class="feedback"></div>
+    </div>
+
+    <!-- Q17 -->
+    <div class="question" data-question-id="17">
+      <h3>17. Ποια τοξίνη αναστέλλει την απελευθέρωση ακετυλοχολίνης από τα συναπτικά κυστίδια;</h3>
+      <ul class="options">
+        <li class="option" data-correct="true">Τοξίνη αλλαντίασης (botulinum toxin)</li>
+        <li class="option" data-correct="false">Τοξίνη τετάνου</li>
+        <li class="option" data-correct="false">Διφθεριτική τοξίνη</li>
+        <li class="option" data-correct="false">Εντεροτοξίνη σταφυλόκοκκου</li>
+      </ul>
+      <div class="feedback"></div>
+    </div>
+
+    <!-- Q18 -->
+    <div class="question" data-question-id="18">
+      <h3>18. Ποιο δηλητήριο προκαλεί εκκένωση όλης της ακετυλοχολίνης από τα συναπτικά κυστίδια;</h3>
+      <ul class="options">
+        <li class="option" data-correct="true">Δηλητήριο μαύρης αράχνης</li>
+        <li class="option" data-correct="false">Σαρίνη</li>
+        <li class="option" data-correct="false">Παραθείο</li>
+        <li class="option" data-correct="false">Ισοφλουράτη</li>
+      </ul>
+      <div class="feedback"></div>
+    </div>
+
+    <!-- Q19 -->
+    <div class="question" data-question-id="19">
+      <h3>19. Ποιες είναι οι δύο κύριες οικογένειες χολινεργικών υποδοχέων;</h3>
+      <ul class="options">
+        <li class="option" data-correct="true">Μουσκαρινικοί και νικοτινικοί</li>
+        <li class="option" data-correct="false">Αδρενεργικοί και ντοπαμινεργικοί</li>
+        <li class="option" data-correct="false">Ισταμινικοί και σεροτονινεργικοί</li>
+        <li class="option" data-correct="false">GABA-εργικοί και γλυκινεργικοί</li>
+      </ul>
+      <div class="feedback"></div>
+    </div>
+
+    <!-- Q20 -->
+    <div class="question" data-question-id="20">
+      <h3>20. Ποιο αλκαλοειδές, εκτός από την ακετυλοχολίνη, αναγνωρίζουν οι μουσκαρινικοί υποδοχείς;</h3>
+      <ul class="options">
+        <li class="option" data-correct="true">Μουσκαρίνη</li>
+        <li class="option" data-correct="false">Νικοτίνη</li>
+        <li class="option" data-correct="false">Ατροπίνη</li>
+        <li class="option" data-correct="false">Μορφίνη</li>
+      </ul>
+      <div class="feedback"></div>
+    </div>
+
+    <!-- Q21 -->
+    <div class="question" data-question-id="21">
+      <h3>21. Ποιοι μουσκαρινικοί υποδοχείς συνδέονται με Gq-πρωτεΐνη και ενεργοποιούν την οδό της φωσφορικής ινοσιτόλης;</h3>
+      <ul class="options">
+        <li class="option" data-correct="true">M1, M3, M5</li>
+        <li class="option" data-correct="false">M2, M4</li>
+        <li class="option" data-correct="false">Όλοι οι μουσκαρινικοί</li>
+        <li class="option" data-correct="false">Κανένας</li>
+      </ul>
+      <div class="feedback"></div>
+    </div>
+
+    <!-- Q22 -->
+    <div class="question" data-question-id="22">
+      <h3>22. Ποιοι μουσκαρινικοί υποδοχείς μέσω Gi αναστέλλουν την αδενυλική κυκλάση και μειώνουν το cAMP;</h3>
+      <ul class="options">
+        <li class="option" data-correct="false">M1, M3, M5</li>
+        <li class="option" data-correct="true">M2, M4</li>
+        <li class="option" data-correct="false">Μόνο M3</li>
+        <li class="option" data-correct="false">Μόνο M5</li>
+      </ul>
+      <div class="feedback"></div>
+    </div>
+
+    <!-- Q23 -->
+    <div class="question" data-question-id="23">
+      <h3>23. Ποια από τα παρακάτω είναι σωστό για τους μουσκαρινικούς υποδοχείς;</h3>
+      <ul class="options">
+        <li class="option" data-correct="true">Είναι μεταβοτροπικοί υποδοχείς συνδεδεμένοι με G-πρωτεΐνες</li>
+        <li class="option" data-correct="false">Είναι ιονοτροπικοί διαύλοι Na⁺</li>
+        <li class="option" data-correct="false">Βρίσκονται μόνο στους σκελετικούς μύες</li>
+        <li class="option" data-correct="false">Δεν υπάρχουν στον εγκέφαλο</li>
+      </ul>
+      <div class="feedback"></div>
+    </div>
+
+    <!-- Q24 -->
+    <div class="question" data-question-id="24">
+      <h3>24. Ποιες είναι οι τρεις κατηγορίες νικοτινικών υποδοχέων;</h3>
+      <ul class="options">
+        <li class="option" data-correct="true">Μυών, γαγγλίων, ΚΝΣ</li>
+        <li class="option" data-correct="false">Μόνο μυών</li>
+        <li class="option" data-correct="false">Μόνο γαγγλίων και ΚΝΣ</li>
+        <li class="option" data-correct="false">Καρδιακών, ηπατικών, εγκεφαλικών</li>
+      </ul>
+      <div class="feedback"></div>
+    </div>
+
+    <!-- Q25 -->
+    <div class="question" data-question-id="25">
+      <h3>25. Ποιο από τα παρακάτω είναι σωστό για τη νικοτίνη στους νικοτινικούς υποδοχείς;</h3>
+      <ul class="options">
+        <li class="option" data-correct="true">Αρχικά τους διεγείρει και στη συνέχεια τους αποκλείει</li>
+        <li class="option" data-correct="false">Τους μπλοκάρει άμεσα χωρίς φάση διέγερσης</li>
+        <li class="option" data-correct="false">Δρα μόνο στους μουσκαρινικούς υποδοχείς</li>
+        <li class="option" data-correct="false">Δεν έχει καμία δράση σε υποδοχείς του ΚΝΣ</li>
+      </ul>
+      <div class="feedback"></div>
+    </div>
+
+    <!-- Q26 -->
+    <div class="question" data-question-id="26">
+      <h3>26. Ποια νόσος συνδέεται με αυτοαντισώματα έναντι των νικοτινικών υποδοχέων της νευρομυϊκής σύναψης;</h3>
+      <ul class="options">
+        <li class="option" data-correct="true">Μυασθένεια gravis</li>
+        <li class="option" data-correct="false">Νόσος Alzheimer</li>
+        <li class="option" data-correct="false">Πάρκινσον</li>
+        <li class="option" data-correct="false">Πολλαπλή σκλήρυνση</li>
+      </ul>
+      <div class="feedback"></div>
+    </div>
+
+    <!-- Q27 -->
+    <div class="question" data-question-id="27">
+      <h3>27. Στη νόσο Alzheimer, σύμφωνα με την παρουσίαση, υπάρχει:</h3>
+      <ul class="options">
+        <li class="option" data-correct="true">Μειωμένη παραγωγή ακετυλοχολίνης και καταστροφή</li>
+        <li class="option" data-correct="false">Αυξημένη παραγωγή ακετυλοχολίνης</li>
+        <li class="option" data-correct="false">Καμία αλλαγή στο χολινεργικό σύστημα</li>
+        <li class="option" data-correct="false">Μόνο αλλαγές σε νοραδρενεργικούς νευρώνες</li>
+      </ul>
+      <div class="feedback"></div>
+    </div>
+
+  </div>
+
+  <script>
+    const questions = Array.from(document.querySelectorAll('.question'));
+    const scoreSpan = document.getElementById('score');
+    const totalSpan = document.getElementById('totalQuestions');
+    const resetBtn = document.getElementById('resetBtn');
+
+    let score = 0;
+    const totalQuestions = questions.length;
+    totalSpan.textContent = totalQuestions;
+
+    const updateScore = () => {
+      scoreSpan.textContent = score;
+    };
+
+    const addFeedbackText = (feedbackEl, isCorrect) => {
+      feedbackEl.textContent = isCorrect ? 'Σωστή απάντηση!' : 'Λάθος απάντηση. Δείτε την σωστή επιλογή.';
+      feedbackEl.classList.remove('correct-text', 'incorrect-text');
+      feedbackEl.classList.add(isCorrect ? 'correct-text' : 'incorrect-text');
+    };
+
+    const handleOptionClick = (event) => {
+      const option = event.currentTarget;
+      const question = option.closest('.question');
+
+      if (question.classList.contains('answered')) {
+        return;
+      }
+
+      const isCorrect = option.dataset.correct === 'true';
+      const feedbackEl = question.querySelector('.feedback');
+
+      question.classList.add('answered');
+      option.classList.add(isCorrect ? 'correct' : 'incorrect');
+
+      if (!isCorrect) {
+        const correctOption = question.querySelector('.option[data-correct="true"]');
+        if (correctOption) {
+          correctOption.classList.add('correct');
+        }
+      } else {
+        score += 1;
+        updateScore();
+      }
+
+      addFeedbackText(feedbackEl, isCorrect);
+    };
+
+    const resetQuiz = () => {
+      score = 0;
+      updateScore();
+
+      questions.forEach((question) => {
+        question.classList.remove('answered');
+        const feedbackEl = question.querySelector('.feedback');
+        feedbackEl.textContent = '';
+        feedbackEl.classList.remove('correct-text', 'incorrect-text');
+
+        question.querySelectorAll('.option').forEach((option) => {
+          option.classList.remove('correct', 'incorrect');
+        });
+      });
+    };
+
+    questions.forEach((question) => {
+      question.querySelectorAll('.option').forEach((option) => {
+        option.addEventListener('click', handleOptionClick);
+      });
+    });
+
+    resetBtn.addEventListener('click', resetQuiz);
+  </script>
+</body>
+</html>
