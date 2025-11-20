@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>InspireMe Daily</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="hero">
+    <div class="hero__content">
+      <div>
+        <p class="eyebrow">InspireMe Daily</p>
+        <h1>Design your day around the voices that move you.</h1>
+        <p class="subtitle">Bring your calendar, mentors, and future-self messages together so motivation arrives right when you need it.</p>
+        <div class="hero__actions">
+          <button class="primary" data-scroll="schedule">Plan today</button>
+          <button class="ghost" data-scroll="notifications">See inspirations</button>
+        </div>
+      </div>
+      <div class="quote-tile" aria-live="polite">
+        <p class="eyebrow">Quote of the day</p>
+        <blockquote id="quote-of-day">
+          <p>Loading a spark...</p>
+          <footer><span id="quote-author"></span></footer>
+        </blockquote>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="grid" id="schedule">
+      <article class="card wide">
+        <header class="card__header">
+          <div>
+            <p class="eyebrow">Calendar</p>
+            <h2>Plan your day</h2>
+            <p class="hint">Create soft, category-based activities so the right inspiration arrives on time.</p>
+          </div>
+          <div class="pill-group" id="category-pills"></div>
+        </header>
+        <form id="activity-form" class="inline-form" autocomplete="off">
+          <label class="sr-only" for="activity-title">Activity</label>
+          <input id="activity-title" name="title" type="text" placeholder="Write research notes" required />
+          <label class="sr-only" for="activity-category">Category</label>
+          <input id="activity-category" name="category" type="text" placeholder="Study, Work, Gym..." list="category-list" required />
+          <datalist id="category-list"></datalist>
+          <label class="sr-only" for="activity-time">Time</label>
+          <input id="activity-time" name="time" type="time" required />
+          <button class="primary" type="submit">Add</button>
+        </form>
+        <ul class="list" id="activity-list" aria-live="polite"></ul>
+        <p class="empty" id="empty-activities">No plans yet. Add an activity to align your inspirations.</p>
+      </article>
+
+      <article class="card" id="people">
+        <header>
+          <p class="eyebrow">Inspiring people</p>
+          <h2>Voices you follow</h2>
+        </header>
+        <form id="person-form" class="stacked">
+          <input name="name" type="text" placeholder="Add a new mentor or friend" required />
+          <input name="category" type="text" placeholder="Category (e.g., Work, Life, Gym)" required />
+          <textarea name="notes" rows="2" placeholder="Why they inspire you (optional)"></textarea>
+          <button class="secondary" type="submit">Save person</button>
+        </form>
+        <ul class="tiles" id="person-grid" aria-live="polite"></ul>
+      </article>
+
+      <article class="card" id="notifications">
+        <header>
+          <p class="eyebrow">Delivery plan</p>
+          <h2>Notifications & timing</h2>
+        </header>
+        <div class="control-row">
+          <label for="notifications-count">Messages per day</label>
+          <div class="range-wrap">
+            <input id="notifications-count" type="range" min="1" max="8" value="3" />
+            <output id="count-display">3</output>
+          </div>
+        </div>
+        <button class="primary" id="generate-plan" type="button">Generate today's inspirations</button>
+        <ul class="list" id="notification-list" aria-live="polite"></ul>
+        <p class="empty" id="empty-plan">Add people and activities to generate matching inspirations.</p>
+      </article>
+
+      <article class="card" id="future-self">
+        <header>
+          <p class="eyebrow">Future self</p>
+          <h2>Send yourself a note</h2>
+        </header>
+        <form id="future-form" class="stacked">
+          <input name="title" type="text" placeholder="Subject" required />
+          <textarea name="message" rows="3" placeholder="Write a reminder, mantra, or goal..." required></textarea>
+          <label class="sr-only" for="deliver-at">Delivery time</label>
+          <input id="deliver-at" name="deliverAt" type="datetime-local" required />
+          <button class="secondary" type="submit">Schedule note</button>
+        </form>
+        <ul class="list" id="future-list" aria-live="polite"></ul>
+      </article>
+
+      <article class="card wide" id="portfolio">
+        <header class="card__header">
+          <div>
+            <p class="eyebrow">Diary & portfolio</p>
+            <h2>Capture reflections</h2>
+            <p class="hint">Write private diary entries, public poems, or thoughts for close friends.</p>
+          </div>
+          <div class="chip-group">
+            <span class="chip" data-filter="all">All</span>
+            <span class="chip" data-filter="diary">Diary</span>
+            <span class="chip" data-filter="quote">Quote</span>
+            <span class="chip" data-filter="poem">Poem</span>
+          </div>
+        </header>
+        <form id="portfolio-form" class="inline-form">
+          <input name="content" type="text" placeholder="Write a thought, poem, or quote" required />
+          <select name="type">
+            <option value="diary">Diary</option>
+            <option value="quote">Quote</option>
+            <option value="poem">Poem</option>
+          </select>
+          <select name="visibility">
+            <option value="private">Private</option>
+            <option value="friends">Friends</option>
+            <option value="public">Public</option>
+          </select>
+          <button class="primary" type="submit">Save</button>
+        </form>
+        <ul class="tiles" id="portfolio-grid" aria-live="polite"></ul>
+      </article>
+    </section>
+  </main>
+
+  <footer>
+    <p>Softly inspiring every day • Built for gentle motivation</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
